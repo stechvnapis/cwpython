@@ -1,0 +1,18 @@
+
+- Install jupyter
+
+sudo pip3 install jupyter
+
+
+
+- This code is for a Jupyter notebook to print all outputs of all commands of an [IN] instead of just the last command 's output
+
+from IPython.core.interactiveshell import InteractiveShell
+InteractiveShell.ast_node_interactivity = "all"
+
+
+
+- Install matplotlib
+
+
+sudo pip3 install matplotlib
