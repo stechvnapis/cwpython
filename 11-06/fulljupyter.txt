@@ -3,7 +3,9 @@
 
 sudo pip3 install jupyter
 
+- start jupyter notebook with this command
 
+	jupyter notebook
 
 - This code is for a Jupyter notebook to print all outputs of all commands of an [IN] instead of just the last command 's output
 
