@@ -1,0 +1,24 @@
+1) Viết chương trình kiểm tra 1 dict là empty hay không
+
+2) Viết chương trình lấy ra giá trị lớn nhất và nhỏ nhất trong 1 dict
+
+3) In ra bảng game board 9 x 9 với n = 9 (bảng Game Lines) như sau , 
+   ví dụ  n = 3
+       --- --- ---
+      | 1 |   | 1 |
+       --- --- --- 			
+      |   |   |   |
+       --- --- ---
+      |   | 2 |   |
+       --- --- ---
+
+
+     Với 2 điều kiện sau:
+     - Các số trong bảng lấy ngẫu nhiên từ 0 đến 6,  nếu là 0 thì không in ra, nếu > 0 thì in ra số đó như trong ví dụ
+     - lấy ngẫu nhiên sao cho số lượng là 0 là đa số , các số > 0 là thiểu số
+ 
+
+import random
+random.randint(a,b)
+
+        Các em gửi code vào htn264@gmail.com , ghi tên
