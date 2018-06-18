@@ -1,0 +1,19 @@
+1)  Viết 1 hàm mà hàm đó có thể nhận một số lượng tham số bất kỳ 
+    Có thể có tham số được truyền vào dưới dạng keyword arguments xuất hiện đằng sau các tham số bình thường trên.
+    Tất cả các tham số đều có giá trị là số . 
+    Tính tổng giá trị của tất cả các tham số , trả về  kết quả và in ra
+
+    def f(*a,**kwa) :
+
+
+2)  Viết 1 class Circle, có init nhận vào bán kính, và 1 hàm tính diện tích 
+
+
+3)  Viết 1 chương trình dùng generator tự viết in ra các số lẻ  giữa 0 và n
+
+	Ví dụ: n = 10
+
+	output chương trình là
+
+	1 3 5 7 9
+
