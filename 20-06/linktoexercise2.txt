@@ -1,0 +1,2 @@
+Tạo Book và Author classes bằng Python
+https://www.ntu.edu.sg/home/ehchua/programming/java/J3f_OOPExercises.html#zz-2.2
