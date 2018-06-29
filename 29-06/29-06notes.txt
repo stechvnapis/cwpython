@@ -1,0 +1,61 @@
+
+Editors : Visual Studio Code , PyCharm, Brackets, Atom  , python ...
+
+Packages: Emmet, beautify , autoprefixer, terminal , ide-python ,  ... ...
+	  Emmet cheatsheet (pdf or on web)
+
+W3C validator   CSS Validator  
+
+w3schools.com 
+
+CSS Box Model 
+
+box-sizing : border-box
+	
+* {
+  box-sizing: border-box; 
+}
+
+use of !important ; 
+
+use of z-index   
+
+CSS position property 
+
+font-size  : 15 to 25 px for body text 
+
+	font-weight: 300;
+	font-size: 20px; 
+
+very big font sizes for headlines 
+
+line spacing (line-height property)  : 120% - 150% 	
+
+text: 45 to 90 chararacters per line 
+
+1 so font:
+	Serif 
+	sans-serif
+	Cardo
+
+Google Fonts get link
+	vi du: Source Sans Pro , 	
+
+flatuicolors.com
+
+Vector icon font  -> pho'ng to , ko bi mo*`
+
+whitespace giua cac phan tu va khu vuc tren trang web
+
+thiet ke thoa man both user requirements va` business requirements
+
+https://testmysite.thinkwithgoogle.com/ mobile 
+
+https://realfavicongenerator.net/ 
+
+normalize.css
+
+JavaScript 
+	- vi du
+	- bai tap
+		cho 1 khung div html, viet chuong trinh keo khung na`y tren ma`n hi`nh
