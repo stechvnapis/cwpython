@@ -2,7 +2,7 @@
 Editors : Visual Studio Code , PyCharm, Brackets, Atom  , ...
 
 Packages: Emmet, beautify , autoprefixer, terminal , ide-python , ... ...
-	  Emmet cheatsheet (pdf or on web)
+	  Emmet cheatsheet (xem pdf hoac xem tren web)
 
 W3C validator   CSS Validator  
 
@@ -58,4 +58,4 @@ normalize.css
 JavaScript 
 	- vi du
 	- bai tap
-		cho 1 khung div html, viet chuong trinh keo khung na`y tren ma`n hi`nh
+		cho 1 khung div html, viet chuong trinh ke'o khung na`y tren ma`n hi`nh
