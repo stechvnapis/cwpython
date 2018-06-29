@@ -31,7 +31,7 @@ very big font sizes for headlines
 
 line spacing (line-height property)  : khoa?ng 120% to*'i 160% 	
 
-text: khoa?ng 45 to*'i 90 ky' tu*. 1 do`ng
+text: khoa?ng 45 to*'i 95 ky' tu*. 1 do`ng
 
 1 so font:
 	Serif 
