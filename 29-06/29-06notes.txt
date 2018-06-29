@@ -49,7 +49,7 @@ whitespace giua cac phan tu va khu vuc tren trang web
 
 thiet ke thoa man both user requirements va` business requirements
 
-https://testmysite.thinkwithgoogle.com/ mobile 
+https://testmysite.thinkwithgoogle.com/    
 
 https://realfavicongenerator.net/ 
 
