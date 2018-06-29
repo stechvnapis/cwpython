@@ -1,7 +1,7 @@
 
-Editors : Visual Studio Code , PyCharm, Brackets, Atom  , python ...
+Editors : Visual Studio Code , PyCharm, Brackets, Atom  , ...
 
-Packages: Emmet, beautify , autoprefixer, terminal , ide-python ,  ... ...
+Packages: Emmet, beautify , autoprefixer, terminal , ide-python , ... ...
 	  Emmet cheatsheet (pdf or on web)
 
 W3C validator   CSS Validator  
@@ -39,7 +39,7 @@ text: 45 to 90 chararacters per line
 	Cardo
 
 Google Fonts get link
-	vi du: Source Sans Pro , 	
+	vi du: Source Sans Pro  	
 
 flatuicolors.com
 
