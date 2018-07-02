@@ -1,0 +1,7 @@
+Explain how to build website Stech (Stech folder)
+
+Some used websites:
+  responsivegridsystem.com
+  ionicons.com
+  css-tricks.com/snippets/html/glyphs/
+  https://daneden.github.io/animate.css/   animate.css
