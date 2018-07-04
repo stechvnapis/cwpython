@@ -1,3 +1,5 @@
 - jquery
 - bootstrap 3
 - practice jquery 
+- code draggable use jqueryui
+   https://jqueryui.com/draggable/
