@@ -28,6 +28,13 @@ div.line{
 }
 </style>
 <script>
+
+var ie = false;
+
+if (document.documentMode || /Edge/.test(navigator.userAgent)) {
+    ie = true;
+}
+
 function createLine(x1,y1, x2,y2){
     
   var length = Math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
@@ -35,9 +42,11 @@ function createLine(x1,y1, x2,y2){
   var transform = 'rotate('+angle+'deg)';
   var plusy = 0;
   var plusx = 0;
-  if (y2<y1) plusy = y1-y2;
-  if (x2<x1) plusx = x1-x2;
-    var line = $('<div>')
+  if (!ie) {
+	if (y2<y1) plusy = y1-y2;
+	if (x2<x1) plusx = x1-x2;
+  }
+  var line = $('<div>')
         .appendTo('#page')
         .addClass('line')
         .css({
