@@ -3,8 +3,6 @@
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style>
-
-
 #p1 {
   width:220px;
   height:330px;
@@ -12,7 +10,6 @@
   border:1px solid #000;
   z-index:2;
 }
-
 #p2 {
   position:fixed;
   top:410px;
@@ -22,17 +19,15 @@
   border:1px solid #000;
   z-index:1
 }
-
 div.line{
   transform-origin: 0 100%;
+  -webkit-transform-origin: 0 100%;
   height: 3px;
   background: #000; 
   z-index:3
 }
-
 </style>
 <script>
-
 function createLine(x1,y1, x2,y2){
     
   var length = Math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
@@ -48,15 +43,12 @@ function createLine(x1,y1, x2,y2){
         .css({
           'position': 'fixed',
           'transform': transform,
-           '-webkit-transform-origin':transform,
            'z-index':2
         })
         .width(length)
         .offset({left: x1-plusx, top: y1-plusy});
-
     return line;
 }
-
 var pos1 = 0 , pos2 = 0, pos3 = 0, post4 = 0;
 var stop = true;
 var line = null;
