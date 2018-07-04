@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style>
+#p1 {
+  width:200px;
+  height:300px;
+  position:absolute;
+  border:1px solid #000;
+
+}
+</style>
+<script>
+var pos1 = 0 , pos2 = 0, pos3 = 0, post4 = 0;
+var stop = true;
+
+
+$(document).ready(function(){
+    var p1 = $("#p1");
+
+    p1.mousedown(function(ev){
+        pos1 = ev.clientX;
+        pos2 = ev.clientY;
+        stop = false;
+    });
+
+    $(document).mousemove(function(ev){
+        if (!stop) {
+          pos3 = ev.clientX;
+          pos4 = ev.clientY;
+
+          offset = p1.offset();
+
+          p1.css({top: offset.top+pos4-pos2, left: offset.left +pos3-pos1});
+          pos1 = pos3;
+          pos2 = pos4;
+        }
+
+    });
+
+    $(document).mouseup(function(ev){
+        stop = true;
+    });
+
+});
+</script>
+</head>
+<body>
+
+<div id="p1">This is a paragraph.</p>
+
+</body>
+</html>
