@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="UTF-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="math.min.js"></script>
+<style>
+#p1 {
+  width:220px;
+  height:330px;
+  position:fixed;
+  border:1px solid #000;
+  z-index:2;
+}
+#p2 {
+  position:fixed;
+  top:410px;
+  left:420px;
+  width:100px;
+  height:120px;
+  border:1px solid #000;
+  z-index:1
+}
+div.line{
+  transform-origin: 0 100%;
+  -webkit-transform-origin: 0 100%;
+  height: 3px;
+  background: #000;
+  z-index:3;
+  position:fixed;
+}
+
+
+div.arrow {
+    border: solid black;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    position:fixed;
+    padding: 5px;
+    z-index:5;
+}
+
+
+</style>
+<script>
+
+
+
+var ie = false;
+
+if (document.documentMode || /Edge/.test(navigator.userAgent)) {
+    ie = true;
+}
+
+function createLine(x1,y1, x2,y2){
+
+  var length = Math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
+  var angle  = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
+  var transform = 'rotate('+angle+'deg)';
+  var plusy = 0;
+  var plusx = 0;
+  if (!ie) {
+	if (y2<y1) plusy = y1-y2;
+	if (x2<x1) plusx = x1-x2;
+  }
+  var line = $('<div>')
+        .appendTo('#page')
+        .addClass('line')
+        .css({
+          'position': 'fixed',
+          'transform': transform,
+          '-webkit-transform': transform,
+           'z-index':3
+        })
+        .width(length)
+        .offset({left: x1-plusx, top: y1-plusy});
+    return line;
+}
+
+
+function createArrow(x1,y1, x2,y2){
+
+  var length = Math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
+  var radangle = Math.atan2(y2 - y1, x2 - x1);
+  var angle  =  radangle * 180 / Math.PI;
+  var transform = 'rotate('+(angle-45)+'deg)';
+  var plusy = 0;
+  var plusx = 0;
+  if (!ie) {
+	if (y2<y1) plusy = y1-y2;
+	if (x2<x1) plusx = x1-x2;
+  }
+  var arrow = $('<div>')
+        .appendTo('#page')
+        .addClass('arrow')
+        .css({
+          'position': 'fixed',
+          'transform': transform,
+          '-webkit-transform': transform,
+           'z-index':5
+        })
+        .offset({left: x2-Math.cos(radangle/2)*10, top: y2-Math.sin(Math.PI/4.5)*10});
+        console.log(radangle + " "+x2+" x"+(x2-Math.cos(radangle/2)*10)+" "+y2+" "+(y2-Math.sin(radangle/2)*10));
+    return arrow;
+}
+
+var pos1 = 0 , pos2 = 0, pos3 = 0, post4 = 0;
+var stop = true;
+var line = null;
+var point = null;
+var arrow = null;
+var cases = 0;
+var minx , maxx, miny , maxy;
+
+
+function intersection(p1,p2,p3,p4){
+
+    var error = 0.00001;
+    var point = math.intersect(p1,p2,p3,p4);
+
+    if (point) {
+    	var min0,max0;
+    	var min1,max1;
+      var mina0,maxa0;
+    	var mina1,maxa1;
+
+
+    	min0 = p3[0];
+    	if (min0>p4[0]) min0 = p4[0];
+
+    	max0 = p3[0];
+    	if (max0<p4[0]) max0 = p4[0];
+
+    	min1 = p3[1];
+    	if (min1>p4[1]) min1 = p4[1];
+
+    	max1 = p3[1];
+    	if (max1<p4[1]) max1 = p4[1];
+
+
+    	mina0 = p1[0];
+    	if (mina0>p2[0]) mina0 = p2[0];
+
+    	maxa0 = p1[0];
+    	if (maxa0<p2[0]) maxa0 = p2[0];
+
+    	mina1 = p1[1];
+    	if (mina1>p2[1]) mina1 = p2[1];
+
+    	maxa1 = p1[1];
+    	if (maxa1<p2[1]) maxa1 = p2[1];
+
+
+  	  if ((point[0]>=min0-error)&&(point[0]<=max0+error)&&(point[1]>=min1-error)&&(point[1]<=max1+error)
+         &&(point[0]>=mina0-error)&&(point[0]<=maxa0+error)&&(point[1]>=mina1-error)&&(point[1]<=maxa1+error)) {
+  		  return point;
+      }
+  	  else return null;
+    } else
+	  return null;
+}
+
+
+$(document).ready(function(){
+    var p1 = $("#p1");
+    var p2 = $("#p2");
+
+    p1.mousedown(function(ev){
+        pos1 = ev.clientX;
+        pos2 = ev.clientY;
+        stop = false;
+    });
+    $(document).mousemove(function(ev){
+        if (!stop) {
+          pos3 = ev.clientX;
+          pos4 = ev.clientY;
+          offset = p1.offset();
+          p1.css({top: offset.top+pos4-pos2, left: offset.left +pos3-pos1});
+          if (line) line.remove();
+	        if (arrow) arrow.remove();
+
+          point = null;
+
+	  cases = 0;
+	  point = intersection([p2.offset().left+p2.width()/2, p2.offset().top+p2.height()/2],
+				[p1.offset().left+p1.width()/2,p1.offset().top+p1.height()/2],
+				[p1.offset().left,p1.offset().top], [p1.offset().left+p1.width(),p1.offset().top]);
+
+	  if (point)  cases = 1;
+
+	  if (!cases) {
+  	  	point = intersection([p2.offset().left+p2.width()/2, p2.offset().top+p2.height()/2],
+				[p1.offset().left+p1.width()/2,p1.offset().top+p1.height()/2],
+				[p1.offset().left,p1.offset().top], [p1.offset().left,p1.offset().top+p1.height()]);
+
+		if (point)  cases = 2;
+	  }
+
+	  if (!cases) {
+  	  	point = intersection([p2.offset().left+p2.width()/2, p2.offset().top+p2.height()/2],
+				[p1.offset().left+p1.width()/2,p1.offset().top+p1.height()/2],
+		[p1.offset().left+p1.width(),p1.offset().top], [p1.offset().left+p1.width(),p1.offset().top+p1.height()]);
+
+          	if (point)  cases = 3;
+	  }
+
+	  if (!cases) {
+  	  	point = intersection([p2.offset().left+p2.width()/2, p2.offset().top+p2.height()/2],
+				[p1.offset().left+p1.width()/2,p1.offset().top+p1.height()/2],
+				[p1.offset().left,p1.offset().top+p1.height()], [p1.offset().left+p1.width(),p1.offset().top+p1.height()]);
+
+		if (point)  cases = 4;
+	  }
+
+    if (point)
+	    console.log(point[0]+" "+point[1]+" "+cases);
+
+    console.log(cases);
+
+    if (!cases) {
+		// Arrow direction (p2center,p1center) will be in the center of p1
+ 		line = createLine(p2.offset().left+p2.width()/2,p2.offset().top+p2.height()/2,p1.offset().left+p1.width()/2,
+p1.offset().top+p1.height()/2);
+		arrow = createArrow(p2.offset().left+p2.width()/2,p2.offset().top+p2.height()/2,p1.offset().left+p1.width()/2,p1.offset().top+p1.height()/2);
+
+
+	  } else {
+	     // Arrow direction (p2center,p1center) will be in position point[0],point[1]
+ 		line = createLine(p2.offset().left+p2.width()/2,p2.offset().top+p2.height()/2,point[0],point[1]);
+ 		arrow = createArrow(p2.offset().left+p2.width()/2,p2.offset().top+p2.height()/2,point[0],point[1]);
+
+	  }
+
+
+          pos1 = pos3;
+          pos2 = pos4;
+        }
+    });
+    $(document).mouseup(function(ev){
+        stop = true;
+    });
+
+});
+</script>
+</head>
+<body>
+<div id ="page">
+<div id="p1">This is a note.</p>
+
+<div id="p2" >Another note</p>
+
+</div>
+</body>
+</html>
