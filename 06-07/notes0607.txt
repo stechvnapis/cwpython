@@ -1,0 +1,3 @@
+- Stech 2 - the second website - a bootstrap example
+
+- SQL queries
