@@ -31,16 +31,6 @@ div.line{
 }
 
 
-div.arrow {
-    border: solid black;
-    border-width: 0 3px 3px 0;
-    display: inline-block;
-    position:fixed;
-    padding: 5px;
-    z-index:5;
-}
-
-
 </style>
 <script>
 
@@ -78,37 +68,13 @@ function createLine(x1,y1, x2,y2){
 }
 
 
-function createArrow(x1,y1, x2,y2){
-
-  var length = Math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
-  var radangle = Math.atan2(y2 - y1, x2 - x1);
-  var angle  =  radangle * 180 / Math.PI;
-  var transform = 'rotate('+(angle-45)+'deg)';
-  var plusy = 0;
-  var plusx = 0;
-  if (!ie) {
-	if (y2<y1) plusy = y1-y2;
-	if (x2<x1) plusx = x1-x2;
-  }
-  var arrow = $('<div>')
-        .appendTo('#page')
-        .addClass('arrow')
-        .css({
-          'position': 'fixed',
-          'transform': transform,
-          '-webkit-transform': transform,
-           'z-index':5
-        })
-        .offset({left: x2-Math.cos(radangle/2)*10, top: y2-Math.sin(Math.PI/4.5)*10});
-        console.log(radangle + " "+x2+" x"+(x2-Math.cos(radangle/2)*10)+" "+y2+" "+(y2-Math.sin(radangle/2)*10));
-    return arrow;
-}
-
 var pos1 = 0 , pos2 = 0, pos3 = 0, post4 = 0;
 var stop = true;
 var line = null;
 var point = null;
-var arrow = null;
+var arrow_line1 = null;
+var arrow_line2 = null;
+
 var cases = 0;
 var minx , maxx, miny , maxy;
 
@@ -164,6 +130,7 @@ function intersection(p1,p2,p3,p4){
 $(document).ready(function(){
     var p1 = $("#p1");
     var p2 = $("#p2");
+    var headlen = 16;
 
     p1.mousedown(function(ev){
         pos1 = ev.clientX;
@@ -177,59 +144,65 @@ $(document).ready(function(){
           offset = p1.offset();
           p1.css({top: offset.top+pos4-pos2, left: offset.left +pos3-pos1});
           if (line) line.remove();
-	        if (arrow) arrow.remove();
+          if (arrow_line1) arrow_line1.remove();
+          if (arrow_line2) arrow_line2.remove();
 
           point = null;
 
-	  cases = 0;
-	  point = intersection([p2.offset().left+p2.width()/2, p2.offset().top+p2.height()/2],
-				[p1.offset().left+p1.width()/2,p1.offset().top+p1.height()/2],
-				[p1.offset().left,p1.offset().top], [p1.offset().left+p1.width(),p1.offset().top]);
+      	  cases = 0;
+      	  point = intersection([p2.offset().left+p2.width()/2, p2.offset().top+p2.height()/2],
+      				[p1.offset().left+p1.width()/2,p1.offset().top+p1.height()/2],
+      				[p1.offset().left,p1.offset().top], [p1.offset().left+p1.width(),p1.offset().top]);
 
-	  if (point)  cases = 1;
+      	  if (point)  cases = 1;
 
-	  if (!cases) {
-  	  	point = intersection([p2.offset().left+p2.width()/2, p2.offset().top+p2.height()/2],
-				[p1.offset().left+p1.width()/2,p1.offset().top+p1.height()/2],
-				[p1.offset().left,p1.offset().top], [p1.offset().left,p1.offset().top+p1.height()]);
+      	  if (!cases) {
+        	  	point = intersection([p2.offset().left+p2.width()/2, p2.offset().top+p2.height()/2],
+      				[p1.offset().left+p1.width()/2,p1.offset().top+p1.height()/2],
+      				[p1.offset().left,p1.offset().top], [p1.offset().left,p1.offset().top+p1.height()]);
 
-		if (point)  cases = 2;
-	  }
+      		if (point)  cases = 2;
+      	  }
 
-	  if (!cases) {
-  	  	point = intersection([p2.offset().left+p2.width()/2, p2.offset().top+p2.height()/2],
-				[p1.offset().left+p1.width()/2,p1.offset().top+p1.height()/2],
-		[p1.offset().left+p1.width(),p1.offset().top], [p1.offset().left+p1.width(),p1.offset().top+p1.height()]);
+      	  if (!cases) {
+        	  	point = intersection([p2.offset().left+p2.width()/2, p2.offset().top+p2.height()/2],
+      				[p1.offset().left+p1.width()/2,p1.offset().top+p1.height()/2],
+      		[p1.offset().left+p1.width(),p1.offset().top], [p1.offset().left+p1.width(),p1.offset().top+p1.height()]);
 
-          	if (point)  cases = 3;
-	  }
+                	if (point)  cases = 3;
+      	  }
 
-	  if (!cases) {
-  	  	point = intersection([p2.offset().left+p2.width()/2, p2.offset().top+p2.height()/2],
-				[p1.offset().left+p1.width()/2,p1.offset().top+p1.height()/2],
-				[p1.offset().left,p1.offset().top+p1.height()], [p1.offset().left+p1.width(),p1.offset().top+p1.height()]);
+      	  if (!cases) {
+        	  	point = intersection([p2.offset().left+p2.width()/2, p2.offset().top+p2.height()/2],
+      				[p1.offset().left+p1.width()/2,p1.offset().top+p1.height()/2],
+      				[p1.offset().left,p1.offset().top+p1.height()], [p1.offset().left+p1.width(),p1.offset().top+p1.height()]);
 
-		if (point)  cases = 4;
-	  }
+      		if (point)  cases = 4;
+      	  }
 
-    if (point)
-	    console.log(point[0]+" "+point[1]+" "+cases);
+          if (point)
+      	    console.log(point[0]+" "+point[1]+" "+cases);
 
-    console.log(cases);
+          console.log(cases);
+          var angle;
 
-    if (!cases) {
-		// Arrow direction (p2center,p1center) will be in the center of p1
- 		line = createLine(p2.offset().left+p2.width()/2,p2.offset().top+p2.height()/2,p1.offset().left+p1.width()/2,
-p1.offset().top+p1.height()/2);
-		arrow = createArrow(p2.offset().left+p2.width()/2,p2.offset().top+p2.height()/2,p1.offset().left+p1.width()/2,p1.offset().top+p1.height()/2);
+          if (!cases) {
+        		// Arrow direction (p2center,p1center) will be in the center of p1
+         		line = createLine(p2.offset().left+p2.width()/2,p2.offset().top+p2.height()/2,p1.offset().left+p1.width()/2,p1.offset().top+p1.height()/2);
+            angle = Math.atan2(p1.offset().top+p1.height()/2-(p2.offset().top+p2.height()/2),p1.offset().left+p1.width()/2-(p2.offset().left+p2.width()/2));
+
+            arrow_line1 = createLine(p1.offset().left+p1.width()/2,p1.offset().top+p1.height()/2,p1.offset().left+p1.width()/2-headlen*Math.cos(angle-Math.PI/7),p1.offset().top+p1.height()/2-headlen*Math.sin(angle-Math.PI/7))
+            arrow_line2 = createLine(p1.offset().left+p1.width()/2,p1.offset().top+p1.height()/2,p1.offset().left+p1.width()/2-headlen*Math.cos(angle+Math.PI/7),p1.offset().top+p1.height()/2-headlen*Math.sin(angle+Math.PI/7))
+
+      	  } else {
+      	     // Arrow direction (p2center,p1center) will be in position point[0],point[1]
+         		line = createLine(p2.offset().left+p2.width()/2,p2.offset().top+p2.height()/2,point[0],point[1]);
+            angle = Math.atan2(point[1]-(p2.offset().top+p2.height()/2),point[0]-(p2.offset().left+p2.width()/2));
+            arrow_line1 = createLine(point[0],point[1],point[0]-headlen*Math.cos(angle-Math.PI/7),point[1]-headlen*Math.sin(angle-Math.PI/7))
+            arrow_line2 = createLine(point[0],point[1],point[0]-headlen*Math.cos(angle+Math.PI/7),point[1]-headlen*Math.sin(angle+Math.PI/7))
 
 
-	  } else {
-	     // Arrow direction (p2center,p1center) will be in position point[0],point[1]
- 		line = createLine(p2.offset().left+p2.width()/2,p2.offset().top+p2.height()/2,point[0],point[1]);
- 		arrow = createArrow(p2.offset().left+p2.width()/2,p2.offset().top+p2.height()/2,point[0],point[1]);
-
-	  }
+      	  }
 
 
           pos1 = pos3;
