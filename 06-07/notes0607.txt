@@ -2,5 +2,5 @@
 
 - SQL queries
 
-- extended move 2 , objects and line with arrow , the demo uses a short cut way to draw arrow
+- extended move 2 , objects and line with arrow 
 
