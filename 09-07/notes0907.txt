@@ -10,6 +10,7 @@
 - sudo pip3 install pillow
 - sudo pip3 install psycopg2-binary
 - example project
+- python3 manage.py migrate
 -	python3 manage.py runserver
 - https://useiconic.com/open
 
