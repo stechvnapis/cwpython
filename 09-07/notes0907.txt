@@ -14,3 +14,15 @@
 -	python3 manage.py runserver
 - https://useiconic.com/open
 
+- other Django commands:
+
+	django-admin startproject projecta   (tao 1 project moi)
+	
+	python manage.py makemigrations	  (du`ng de tao ra cac migrations sau khi co code Model moi)
+	python manage.py migrate      (thuc thi migrate, tao tables va cap nhat tables trong db)
+
+	python manage.py startapp appa  (tao app appa trong project)
+
+	python manage.py createsuperuser   (tao 1 superuser de sau do co the dang nhap ta.i http://localhost:8000/admin
+
+
